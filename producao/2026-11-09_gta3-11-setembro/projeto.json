@@ -1,0 +1,49 @@
+{
+ "voice": "narracao.mp3",
+ "timings": "timings.json",
+ "music": "../../library/musicas/trilha_01_synthwave_miami.mp3",
+ "hook": "O 11 DE SETEMBRO\\NMUDOU O GTA 3",
+ "hook_end": 4.9,
+ "highlight": [
+  "GTA",
+  "3",
+  "11",
+  "setembro.",
+  "Rockstar",
+  "azuis",
+  "pretas",
+  "Darkel",
+  "mito",
+  "Nova",
+  "York.",
+  "meses"
+ ],
+ "end_card_start": 32.6,
+ "scenes": [
+  {
+   "image": "cenas/c1_cidade.png",
+   "start": 0
+  },
+  {
+   "image": "cenas/c2_adiado.png",
+   "start": 5.0
+  },
+  {
+   "image": "cenas/c3_viatura_azul.png",
+   "start": 12.3
+  },
+  {
+   "image": "cenas/c4_viatura_preta.png",
+   "start": 20.4
+  },
+  {
+   "image": "cenas/c5_mito.png",
+   "start": 22.1
+  },
+  {
+   "image": "cenas/c6_final.png",
+   "start": 32.6
+  }
+ ],
+ "out": "final_gta3_11_setembro.mp4"
+}

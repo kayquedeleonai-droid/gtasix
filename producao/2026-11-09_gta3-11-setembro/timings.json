@@ -1,0 +1,505 @@
+{
+"duration": 39.0,
+"words": [
+{
+"text": "O",
+"start": 0.058,
+"end": 0.116
+},
+{
+"text": "GTA",
+"start": 0.186,
+"end": 0.464
+},
+{
+"text": "3",
+"start": 0.569,
+"end": 0.789
+},
+{
+"text": "quase",
+"start": 1.196,
+"end": 1.474
+},
+{
+"text": "saiu",
+"start": 1.509,
+"end": 1.73
+},
+{
+"text": "diferente.",
+"start": 1.765,
+"end": 2.415
+},
+{
+"text": "E",
+"start": 2.717,
+"end": 2.786
+},
+{
+"text": "o",
+"start": 2.833,
+"end": 2.856
+},
+{
+"text": "motivo",
+"start": 2.879,
+"end": 3.239
+},
+{
+"text": "foi",
+"start": 3.274,
+"end": 3.425
+},
+{
+"text": "o",
+"start": 3.483,
+"end": 3.506
+},
+{
+"text": "11",
+"start": 3.553,
+"end": 3.913
+},
+{
+"text": "de",
+"start": 3.971,
+"end": 4.04
+},
+{
+"text": "setembro.",
+"start": 4.087,
+"end": 4.748
+},
+{
+"text": "Depois",
+"start": 5.05,
+"end": 5.364
+},
+{
+"text": "dos",
+"start": 5.387,
+"end": 5.492
+},
+{
+"text": "ataques,",
+"start": 5.561,
+"end": 6.2
+},
+{
+"text": "a",
+"start": 6.397,
+"end": 6.467
+},
+{
+"text": "Rockstar",
+"start": 6.525,
+"end": 7.012
+},
+{
+"text": "adiou",
+"start": 7.117,
+"end": 7.616
+},
+{
+"text": "o",
+"start": 7.639,
+"end": 7.663
+},
+{
+"text": "lançamento",
+"start": 7.732,
+"end": 8.29
+},
+{
+"text": "em",
+"start": 8.313,
+"end": 8.359
+},
+{
+"text": "cerca",
+"start": 8.406,
+"end": 8.638
+},
+{
+"text": "de",
+"start": 8.684,
+"end": 8.742
+},
+{
+"text": "três",
+"start": 8.8,
+"end": 9.009
+},
+{
+"text": "semanas",
+"start": 9.033,
+"end": 9.543
+},
+{
+"text": "e",
+"start": 9.845,
+"end": 9.95
+},
+{
+"text": "mexeu",
+"start": 9.996,
+"end": 10.368
+},
+{
+"text": "em",
+"start": 10.403,
+"end": 10.46
+},
+{
+"text": "vários",
+"start": 10.565,
+"end": 10.901
+},
+{
+"text": "detalhes",
+"start": 10.948,
+"end": 11.308
+},
+{
+"text": "do",
+"start": 11.354,
+"end": 11.424
+},
+{
+"text": "jogo.",
+"start": 11.482,
+"end": 11.97
+},
+{
+"text": "O",
+"start": 12.329,
+"end": 12.399
+},
+{
+"text": "mais",
+"start": 12.469,
+"end": 12.678
+},
+{
+"text": "visível?",
+"start": 12.736,
+"end": 13.374
+},
+{
+"text": "As",
+"start": 13.781,
+"end": 13.955
+},
+{
+"text": "viaturas",
+"start": 14.001,
+"end": 14.489
+},
+{
+"text": "da",
+"start": 14.524,
+"end": 14.605
+},
+{
+"text": "polícia",
+"start": 14.663,
+"end": 15.174
+},
+{
+"text": "eram",
+"start": 15.278,
+"end": 15.534
+},
+{
+"text": "azuis",
+"start": 15.615,
+"end": 16.079
+},
+{
+"text": "e",
+"start": 16.219,
+"end": 16.323
+},
+{
+"text": "brancas,",
+"start": 16.381,
+"end": 17.194
+},
+{
+"text": "parecidas",
+"start": 17.449,
+"end": 18.03
+},
+{
+"text": "demais",
+"start": 18.076,
+"end": 18.459
+},
+{
+"text": "com",
+"start": 18.529,
+"end": 18.668
+},
+{
+"text": "as",
+"start": 18.692,
+"end": 18.738
+},
+{
+"text": "da",
+"start": 18.796,
+"end": 18.877
+},
+{
+"text": "polícia",
+"start": 18.935,
+"end": 19.237
+},
+{
+"text": "de",
+"start": 19.284,
+"end": 19.33
+},
+{
+"text": "Nova",
+"start": 19.388,
+"end": 19.597
+},
+{
+"text": "York.",
+"start": 19.644,
+"end": 20.096
+},
+{
+"text": "Viraram",
+"start": 20.456,
+"end": 20.84
+},
+{
+"text": "pretas",
+"start": 20.909,
+"end": 21.211
+},
+{
+"text": "e",
+"start": 21.257,
+"end": 21.292
+},
+{
+"text": "brancas.",
+"start": 21.339,
+"end": 21.931
+},
+{
+"text": "E",
+"start": 22.151,
+"end": 22.221
+},
+{
+"text": "tem",
+"start": 22.291,
+"end": 22.418
+},
+{
+"text": "um",
+"start": 22.488,
+"end": 22.546
+},
+{
+"text": "mito",
+"start": 22.651,
+"end": 22.953
+},
+{
+"text": "famoso:",
+"start": 23.022,
+"end": 23.754
+},
+{
+"text": "o",
+"start": 23.951,
+"end": 24.032
+},
+{
+"text": "de",
+"start": 24.09,
+"end": 24.16
+},
+{
+"text": "que",
+"start": 24.218,
+"end": 24.288
+},
+{
+"text": "o",
+"start": 24.334,
+"end": 24.369
+},
+{
+"text": "personagem",
+"start": 24.415,
+"end": 24.996
+},
+{
+"text": "Darkel",
+"start": 25.054,
+"end": 25.391
+},
+{
+"text": "foi",
+"start": 25.46,
+"end": 25.611
+},
+{
+"text": "cortado",
+"start": 25.658,
+"end": 26.122
+},
+{
+"text": "por",
+"start": 26.169,
+"end": 26.296
+},
+{
+"text": "causa",
+"start": 26.354,
+"end": 26.586
+},
+{
+"text": "dos",
+"start": 26.633,
+"end": 26.749
+},
+{
+"text": "ataques.",
+"start": 26.819,
+"end": 27.446
+},
+{
+"text": "Só",
+"start": 27.748,
+"end": 27.899
+},
+{
+"text": "que,",
+"start": 27.968,
+"end": 28.317
+},
+{
+"text": "segundo",
+"start": 28.514,
+"end": 28.92
+},
+{
+"text": "a",
+"start": 28.944,
+"end": 28.967
+},
+{
+"text": "Rockstar,",
+"start": 29.025,
+"end": 29.64
+},
+{
+"text": "essa",
+"start": 29.861,
+"end": 30.081
+},
+{
+"text": "decisão",
+"start": 30.14,
+"end": 30.534
+},
+{
+"text": "foi",
+"start": 30.592,
+"end": 30.732
+},
+{
+"text": "tomada",
+"start": 30.766,
+"end": 31.196
+},
+{
+"text": "meses",
+"start": 31.301,
+"end": 31.649
+},
+{
+"text": "antes.",
+"start": 31.73,
+"end": 32.287
+},
+{
+"text": "Você",
+"start": 32.647,
+"end": 32.845
+},
+{
+"text": "sabia",
+"start": 32.891,
+"end": 33.146
+},
+{
+"text": "dessa?",
+"start": 33.205,
+"end": 33.634
+},
+{
+"text": "Comenta",
+"start": 33.89,
+"end": 34.377
+},
+{
+"text": "aí",
+"start": 34.447,
+"end": 34.946
+},
+{
+"text": "e",
+"start": 35.109,
+"end": 35.213
+},
+{
+"text": "segue",
+"start": 35.271,
+"end": 35.515
+},
+{
+"text": "o",
+"start": 35.631,
+"end": 35.666
+},
+{
+"text": "canal",
+"start": 35.712,
+"end": 35.979
+},
+{
+"text": "pra",
+"start": 36.026,
+"end": 36.153
+},
+{
+"text": "mais",
+"start": 36.2,
+"end": 36.339
+},
+{
+"text": "curiosidades",
+"start": 36.386,
+"end": 36.955
+},
+{
+"text": "de",
+"start": 36.989,
+"end": 37.059
+},
+{
+"text": "GTA.",
+"start": 37.117,
+"end": 37.628
+}
+]
+}

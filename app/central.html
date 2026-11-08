@@ -1,0 +1,427 @@
+<title>Central Mission Passed</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: barra de abas fixa no topo + uma visão por vez (semana, banco, meta, cortes). Visual único escuro "Vice City à noite". */
+:root {
+  color-scheme: dark;
+  --bg: #120a1c;
+  --panel: #1d1229;
+  --panel-2: #271838;
+  --line: #3a2752;
+  --fg: #f4eefb;
+  --muted: #a898bf;
+  --pink: #ff3ea5;
+  --gold: #ffc428;
+  --cyan: #2fd4e6;
+  --ok: #3ddc97;
+  --warn: #ffb020;
+  --bad: #ff5d6c;
+  --display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 14px 10px; }
+.brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.brand h1 { font-family: var(--display); font-weight: 400; font-size: 28px; letter-spacing: .5px; margin: 0; line-height: 1; }
+.brand h1 span { color: var(--gold); }
+.stars { color: var(--fg); letter-spacing: 2px; font-size: 13px; }
+.status-line { margin-left: auto; color: var(--muted); font-size: 13px; }
+nav { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 0; }
+nav a { font-family: var(--display); font-size: 17px; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 8px 14px 10px; border-bottom: 3px solid transparent; white-space: nowrap; }
+nav a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--pink); }
+nav a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+main { padding-block: 20px 48px; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 30px; letter-spacing: .4px; margin: 0 0 4px; text-wrap: balance; }
+.lede { color: var(--muted); margin: 0 0 18px; max-width: 70ch; }
+.row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+button, .btn { font: 600 14px var(--body); color: var(--fg); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button.primary { background: var(--pink); border-color: var(--pink); color: #1a0612; }
+button.ghost { background: transparent; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+select, input, textarea { font: 500 14px var(--body); color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; max-width: 100%; }
+textarea { width: 100%; min-height: 70px; resize: vertical; }
+label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; font-weight: 600; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+.s-a_checar { color: var(--warn); } .s-checada { color: var(--cyan); } .s-roteirizada { color: #c79bff; }
+.s-produzido { color: var(--gold); } .s-postado { color: var(--ok); } .s-descartada { color: var(--muted); }
+.c-alta { color: var(--ok); } .c-media { color: var(--warn); } .c-lenda { color: var(--pink); }
+.notice { border: 1px solid var(--line); background: var(--panel); border-radius: 10px; padding: 12px 14px; color: var(--muted); margin-bottom: 16px; }
+.notice.warn { border-color: var(--warn); color: var(--fg); }
+
+/* SEMANA */
+.weekbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.weekbar strong { font-family: var(--mono); font-size: 14px; }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.day { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.day.today { border-color: var(--pink); }
+.day.launch { box-shadow: inset 0 3px 0 var(--gold); }
+.day h3 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 18px; letter-spacing: .5px; display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+.day h3 small { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.tag-launch { font-size: 11px; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+.slot { border: 1px dashed var(--line); border-radius: 8px; padding: 8px; display: grid; gap: 6px; min-width: 0; }
+.slot.filled { border-style: solid; background: var(--panel-2); }
+.slot .time { font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 6px; }
+.slot .ttl { font-weight: 600; font-size: 14px; line-height: 1.25; overflow-wrap: anywhere; }
+.slot .meta { font-size: 12px; color: var(--muted); }
+.slot select { width: 100%; font-size: 13px; padding: 5px 6px; }
+.slot .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+.slot .acts button { font-size: 12px; padding: 4px 8px; }
+@media (max-width: 980px) { .week { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .week { grid-template-columns: 1fr; } }
+
+/* BANCO */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.filters button[aria-pressed="true"] { border-color: var(--pink); color: var(--pink); }
+.list { display: grid; gap: 8px; }
+.item { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 14px; }
+.item h4 { margin: 0; font-size: 16px; font-weight: 700; }
+.item .sub { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); }
+.item p { margin: 0; grid-column: 1 / -1; color: var(--fg); opacity: .88; max-width: 85ch; }
+.item .src { grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; font-size: 12px; }
+.item .src a { color: var(--cyan); overflow-wrap: anywhere; }
+.item .side { display: grid; gap: 6px; justify-items: end; align-content: start; }
+.addform { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 18px; }
+.addform .full { grid-column: 1 / -1; }
+details.adder summary { cursor: pointer; font-weight: 700; color: var(--pink); margin-bottom: 10px; }
+
+/* META */
+.goals { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.goal { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; }
+.goal .k { font-size: 12px; text-transform: uppercase; letter-spacing: .7px; color: var(--muted); font-weight: 700; }
+.goal .v { font-family: var(--display); font-size: 40px; line-height: 1; font-variant-numeric: tabular-nums; }
+.goal .v small { font-family: var(--body); font-size: 15px; color: var(--muted); font-weight: 500; }
+.bar { height: 10px; border-radius: 99px; background: var(--panel-2); overflow: hidden; border: 1px solid var(--line); }
+.bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--pink), var(--gold)); }
+.goal .note { font-size: 13px; color: var(--muted); }
+.wanted { display: flex; gap: 4px; font-size: 22px; }
+.wanted span { color: var(--line); }
+.wanted span.on { color: var(--gold); text-shadow: 0 0 10px rgba(255,196,40,.5); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+.metricform { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; margin-bottom: 18px; }
+@media (prefers-reduced-motion: no-preference) { .bar > i { transition: width .6s ease; } }
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand"><h1>GTAVI <span>| MISSION PASSED</span></h1><span class="stars" aria-hidden="true">★★★★★</span></div>
+      <div class="status-line" id="status">Conectando ao banco do canal…</div>
+    </div>
+    <nav aria-label="Seções">
+      <a href="#semana" data-view="semana">Semana</a>
+      <a href="#banco" data-view="banco">Banco de pautas</a>
+      <a href="#meta" data-view="meta">Meta de monetização</a>
+      <a href="#cortes" data-view="cortes">Fontes de cortes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="ro" class="notice warn" hidden>Você está vendo em modo leitura. Só quem edita o canal pode mudar pautas e métricas.</div>
+
+  <section id="v-semana" data-section="semana">
+    <h2>O que postar esta semana</h2>
+    <p class="lede">3 horários por dia (12h, 18h e 21h, horário de Brasília). Escolha uma pauta checada para cada horário livre. O dia 19/11 é o lançamento do GTA VI.</p>
+    <div class="weekbar">
+      <button class="ghost" id="prevWeek" aria-label="Semana anterior">← Anterior</button>
+      <strong id="weekLabel"></strong>
+      <button class="ghost" id="nextWeek" aria-label="Próxima semana">Próxima →</button>
+      <button class="ghost" id="thisWeek">Hoje</button>
+    </div>
+    <div class="week" id="week"></div>
+  </section>
+
+  <section id="v-banco" data-section="banco" hidden>
+    <h2>Banco de pautas</h2>
+    <p class="lede">Toda curiosidade passa por "checada" (2 fontes ou fonte oficial) antes de virar vídeo. Mitos entram como "lenda" e viram vídeo de mito ou verdade.</p>
+    <details class="adder" id="adder">
+      <summary>+ Nova pauta</summary>
+      <form class="addform" id="addPauta">
+        <label>Título (gancho)<input id="f-titulo" required maxlength="90" placeholder="Ex.: O carro mais raro do GTA V"></label>
+        <label>Jogo<input id="f-jogo" required list="jogos" placeholder="GTA San Andreas"></label>
+        <label>Formato<select id="f-formato"></select></label>
+        <label>Confiança<select id="f-conf"><option value="alta">Alta</option><option value="media" selected>Média</option><option value="lenda">Lenda</option></select></label>
+        <label class="full">Fato<textarea id="f-fato" required placeholder="O fato em 1 a 3 frases, com números exatos"></textarea></label>
+        <label class="full">Fonte (URL)<input id="f-fonte" type="url" placeholder="https://"></label>
+        <div class="full row"><button class="primary" type="submit">Adicionar ao banco</button><span id="addMsg" class="note"></span></div>
+      </form>
+      <datalist id="jogos"></datalist>
+    </details>
+    <div class="filters" id="statusFilters"></div>
+    <div class="filters" id="gameFilters"></div>
+    <div class="list" id="list"></div>
+  </section>
+
+  <section id="v-meta" data-section="meta" hidden>
+    <h2>Meta: monetizar até 31/01/2027</h2>
+    <p class="lede">Canais que entrarem no Programa de Parcerias até 31/01/2027 usam a regra atual: 1.000 inscritos e 10 milhões de views em Shorts nos últimos 90 dias. A partir de 01/02/2027 a exigência sobe para 20 milhões.</p>
+    <form class="metricform" id="metricForm">
+      <label>Inscritos<input id="m-subs" type="number" min="0" step="1" inputmode="numeric"></label>
+      <label>Views de Shorts (90 dias)<input id="m-views" type="number" min="0" step="1" inputmode="numeric"></label>
+      <button class="primary" type="submit">Salvar números do YouTube Studio</button>
+      <span class="note" id="metricMsg"></span>
+    </form>
+    <div class="goals" id="goals"></div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Fonte de receita</th><th>Quando liga</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Afiliados (Amazon: consoles, controles, GTA VI físico)</td><td>Desde já</td><td id="r-afil"></td></tr>
+          <tr><td>Programas de clipping pagos por view</td><td>Fase de cortes (dezembro)</td><td>Planejado</td></tr>
+          <tr><td>Super Thanks, membros, Super Chat</td><td>500 inscritos + 3 mi views em 90 dias</td><td id="r-fan"></td></tr>
+          <tr><td>Anúncios (bolo de Shorts + vídeos longos)</td><td>1.000 inscritos + 10 mi views em 90 dias</td><td id="r-ypp"></td></tr>
+          <tr><td>Patrocínios</td><td>~10 mil inscritos</td><td id="r-spon"></td></tr>
+          <tr><td>TikTok, Reels, Kwai (mesmos vídeos)</td><td>Desde já</td><td>Postar junto</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="v-cortes" data-section="cortes" hidden>
+    <h2>Fontes de cortes do GTA VI</h2>
+    <p class="lede">Só cortamos quem autorizou. Ordem de preferência: gameplay próprio, streamers com programa de clipadores ou autorização por escrito, clipes públicos com crédito. Nunca re-upload de outros canais, trailer inteiro ou cutscene isolada.</p>
+    <details class="adder">
+      <summary>+ Nova fonte</summary>
+      <form class="addform" id="addFonte">
+        <label>Streamer ou canal<input id="s-nome" required maxlength="60"></label>
+        <label>Plataforma<select id="s-plat"><option>Twitch</option><option>YouTube</option><option>Kick</option><option>TikTok</option><option>Gameplay próprio</option></select></label>
+        <label>Link<input id="s-link" type="url" placeholder="https://"></label>
+        <label>Situação<select id="s-status"><option value="pedir">Pedir autorização</option><option value="pedido">Pedido enviado</option><option value="autorizado">Autorizado</option><option value="negado">Negado</option></select></label>
+        <label class="full">Observação<input id="s-nota" maxlength="200" placeholder="Ex.: tem programa de clipadores; pede crédito no título"></label>
+        <div class="full row"><button class="primary" type="submit">Adicionar fonte</button></div>
+      </form>
+    </details>
+    <div class="list" id="fontes"></div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const STATUSES = [
+    ["a_checar", "A checar"], ["checada", "Checada"], ["roteirizada", "Roteirizada"],
+    ["produzido", "Produzido"], ["postado", "Postado"], ["descartada", "Descartada"]];
+  const FORMATS = [["voce_sabia","Você sabia?"],["mito_ou_verdade","Mito ou verdade"],["bastidores","Bastidores"],["numeros_absurdos","Números absurdos"],["misterio","Mistério"],["polemica","Polêmica"],["linha_do_tempo","Linha do tempo"],["top3","Top 3"]];
+  const SLOTS = ["12h", "18h", "21h"];
+  const DAYS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+  const LAUNCH = "2026-11-19";
+  const DEADLINE = new Date("2027-01-31T23:59:59-03:00");
+  const label = (arr, k) => (arr.find(x => x[0] === k) || [k, k])[1];
+  const $ = s => document.querySelector(s);
+  const el = (tag, attrs = {}, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === "class") n.className = v; else if (k === "text") n.textContent = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else if (v !== false && v != null) n.setAttribute(k, v === true ? "" : v);
+    }
+    for (const c of kids) if (c != null) n.append(c);
+    return n;
+  };
+  const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  const monday = d => { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); const wd = (x.getDay() + 6) % 7; x.setDate(x.getDate() - wd); return x; };
+  const fmtInt = n => Number(n || 0).toLocaleString("pt-BR");
+
+  let db = null, canWrite = true;
+  let pautas = [], fontes = [], metricas = null;
+  let weekStart = monday(new Date());
+  if (iso(weekStart) < "2026-11-09") weekStart = new Date(2026, 10, 9);
+  let fStatus = "todas", fGame = "todos";
+
+  // ---------- roteamento ----------
+  function showView() {
+    const v = (location.hash || "#semana").slice(1);
+    const view = ["semana", "banco", "meta", "cortes"].includes(v) ? v : "semana";
+    document.querySelectorAll("[data-section]").forEach(s => s.hidden = s.dataset.section !== view);
+    document.querySelectorAll("nav a").forEach(a => a.toggleAttribute("aria-current", a.dataset.view === view) || (a.dataset.view === view && a.setAttribute("aria-current", "page")));
+    document.querySelectorAll("nav a").forEach(a => { if (a.dataset.view === view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  }
+  window.addEventListener("hashchange", showView);
+  showView();
+
+  // ---------- escrita ----------
+  async function write(fn, msgEl) {
+    if (!db || !canWrite) return false;
+    try { await fn(); return true; }
+    catch (e) {
+      if (e && e.code === "invalid_argument") { canWrite = false; applyRO(); }
+      const t = e && e.code === "quota_exceeded" ? "O banco está cheio. Apague pautas descartadas." : "Não foi possível salvar. Tente de novo.";
+      if (msgEl) msgEl.textContent = t; else $("#status").textContent = t;
+      return false;
+    }
+  }
+  function applyRO() {
+    $("#ro").hidden = canWrite;
+    document.querySelectorAll("form button, .slot select, .item select, .slot button").forEach(b => b.disabled = !canWrite);
+  }
+
+  // ---------- SEMANA ----------
+  function renderWeek() {
+    const wk = $("#week"); wk.replaceChildren();
+    const end = new Date(weekStart); end.setDate(end.getDate() + 6);
+    $("#weekLabel").textContent = `${weekStart.toLocaleDateString("pt-BR")} a ${end.toLocaleDateString("pt-BR")}`;
+    const today = iso(new Date());
+    const free = pautas.filter(p => p.status === "checada" && !p.post_data);
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(weekStart); d.setDate(d.getDate() + i);
+      const di = iso(d);
+      const box = el("div", { class: "day" + (di === today ? " today" : "") + (di === LAUNCH ? " launch" : "") },
+        el("h3", {}, DAYS[i], el("small", { text: d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" }) })));
+      if (di === LAUNCH) box.append(el("span", { class: "tag-launch", text: "Lançamento do GTA VI" }));
+      for (const s of SLOTS) {
+        const p = pautas.find(x => x.post_data === di && x.post_slot === s);
+        if (p) {
+          const sel = el("select", { "aria-label": `Status de ${p.titulo}`, onchange: e => write(() => db.doc("pautas/" + p.id).update({ status: e.target.value })) });
+          STATUSES.forEach(([k, l]) => sel.append(el("option", { value: k, selected: k === p.status }, l)));
+          box.append(el("div", { class: "slot filled" },
+            el("div", { class: "time" }, s, el("span", { class: "chip s-" + p.status, text: label(STATUSES, p.status) })),
+            el("div", { class: "ttl", text: p.titulo }),
+            el("div", { class: "meta", text: `${p.jogo} · ${label(FORMATS, p.formato)}` }),
+            sel,
+            el("div", { class: "acts" }, el("button", { class: "ghost", onclick: () => write(() => db.doc("pautas/" + p.id).update({ post_data: "", post_slot: "" })) }, "Tirar do dia"))));
+        } else {
+          const sel = el("select", { "aria-label": `Escolher pauta para ${DAYS[i]} ${s}`, onchange: e => { const id = e.target.value; if (id) write(() => db.doc("pautas/" + id).update({ post_data: di, post_slot: s })); } },
+            el("option", { value: "" }, free.length ? "Escolher pauta…" : "Sem pautas checadas"));
+          free.forEach(f => sel.append(el("option", { value: f.id }, `${f.titulo} (${f.jogo})`)));
+          box.append(el("div", { class: "slot" }, el("div", { class: "time" }, s, el("span", { text: "livre" })), sel));
+        }
+      }
+      wk.append(box);
+    }
+    applyRO();
+  }
+  $("#prevWeek").onclick = () => { weekStart.setDate(weekStart.getDate() - 7); renderWeek(); };
+  $("#nextWeek").onclick = () => { weekStart.setDate(weekStart.getDate() + 7); renderWeek(); };
+  $("#thisWeek").onclick = () => { weekStart = monday(new Date()); renderWeek(); };
+
+  // ---------- BANCO ----------
+  FORMATS.forEach(([k, l]) => $("#f-formato").append(el("option", { value: k }, l)));
+  function renderBank() {
+    const sf = $("#statusFilters"); sf.replaceChildren();
+    const counts = Object.fromEntries(STATUSES.map(([k]) => [k, pautas.filter(p => p.status === k).length]));
+    sf.append(el("button", { "aria-pressed": String(fStatus === "todas"), onclick: () => { fStatus = "todas"; renderBank(); } }, `Todas (${pautas.length})`));
+    STATUSES.forEach(([k, l]) => sf.append(el("button", { "aria-pressed": String(fStatus === k), onclick: () => { fStatus = k; renderBank(); } }, `${l} (${counts[k]})`)));
+    const games = [...new Set(pautas.map(p => p.jogo))].sort();
+    $("#jogos").replaceChildren(...games.map(g => el("option", { value: g })));
+    const gf = $("#gameFilters"); gf.replaceChildren();
+    gf.append(el("button", { "aria-pressed": String(fGame === "todos"), onclick: () => { fGame = "todos"; renderBank(); } }, "Todos os jogos"));
+    games.forEach(g => gf.append(el("button", { "aria-pressed": String(fGame === g), onclick: () => { fGame = g; renderBank(); } }, g)));
+    const list = $("#list"); list.replaceChildren();
+    const shown = pautas.filter(p => (fStatus === "todas" || p.status === fStatus) && (fGame === "todos" || p.jogo === fGame));
+    if (!shown.length) list.append(el("div", { class: "notice", text: pautas.length ? "Nenhuma pauta com esse filtro." : "O banco está vazio. Use + Nova pauta para adicionar a primeira curiosidade." }));
+    for (const p of shown) {
+      const sel = el("select", { "aria-label": `Status de ${p.titulo}`, onchange: e => write(() => db.doc("pautas/" + p.id).update({ status: e.target.value })) });
+      STATUSES.forEach(([k, l]) => sel.append(el("option", { value: k, selected: k === p.status }, l)));
+      const src = el("div", { class: "src" });
+      (p.fontes || []).forEach((u, i) => { try { const h = new URL(u).hostname.replace("www.", ""); src.append(el("a", { href: u, target: "_blank", rel: "noopener" }, `Fonte ${i + 1}: ${h}`)); } catch (_) {} });
+      const when = p.post_data ? `Agendada: ${p.post_data.split("-").reverse().slice(0, 2).join("/")} às ${p.post_slot}` : "";
+      list.append(el("article", { class: "item" },
+        el("div", {}, el("h4", { text: p.titulo }),
+          el("div", { class: "sub" }, p.jogo, "·", label(FORMATS, p.formato), el("span", { class: "chip c-" + p.confianca, text: "confiança " + p.confianca }), when ? el("span", { text: when }) : null)),
+        el("div", { class: "side" }, el("span", { class: "chip s-" + p.status, text: label(STATUSES, p.status) }), sel),
+        el("p", { text: p.fato }), src));
+    }
+    applyRO();
+  }
+  $("#addPauta").addEventListener("submit", async e => {
+    e.preventDefault();
+    const titulo = $("#f-titulo").value.trim();
+    const id = titulo.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "pauta";
+    const fonte = $("#f-fonte").value.trim();
+    const ok = await write(() => db.doc("pautas/" + id + "-" + Date.now().toString(36)).set({
+      titulo, jogo: $("#f-jogo").value.trim(), fato: $("#f-fato").value.trim(), formato: $("#f-formato").value,
+      confianca: $("#f-conf").value, status: "a_checar", fontes: fonte ? [fonte] : [], post_data: "", post_slot: "", criado: new Date().toISOString() }), $("#addMsg"));
+    if (ok) { e.target.reset(); $("#addMsg").textContent = "Adicionada como \"a checar\"."; }
+  });
+
+  // ---------- META ----------
+  function renderGoals() {
+    const subs = Number(metricas?.inscritos || 0), views = Number(metricas?.views90 || 0);
+    if (document.activeElement !== $("#m-subs")) $("#m-subs").value = metricas ? subs : "";
+    if (document.activeElement !== $("#m-views")) $("#m-views").value = metricas ? views : "";
+    const now = new Date();
+    const daysLeft = Math.max(0, Math.ceil((DEADLINE - now) / 86400000));
+    const launchDays = Math.ceil((new Date(LAUNCH + "T00:00:00-03:00") - now) / 86400000);
+    const needViews = Math.max(0, 10000000 - views);
+    const perDay = daysLeft ? Math.ceil(needViews / daysLeft) : needViews;
+    const pct = (a, b) => Math.min(100, (a / b) * 100);
+    const stars = Math.min(5, Math.floor(pct(views, 10000000) / 20) + (subs >= 1000 ? 0 : 0));
+    const g = $("#goals"); g.replaceChildren();
+    const card = (k, v, p, note) => el("div", { class: "goal" }, el("div", { class: "k", text: k }), v,
+      p != null ? el("div", { class: "bar", role: "progressbar", "aria-valuenow": Math.round(p), "aria-valuemin": 0, "aria-valuemax": 100 }, el("i", { style: `width:${p}%` })) : null,
+      el("div", { class: "note", text: note }));
+    const big = (n, s) => { const d = el("div", { class: "v" }); d.append(n, " ", el("small", { text: s })); return d; };
+    g.append(card("Prazo da regra atual", big(String(daysLeft), "dias"), null, "até 31/01/2027. Depois disso, novos canais precisam de 20 mi de views."));
+    g.append(card("Lançamento do GTA VI", big(launchDays > 0 ? String(launchDays) : "Já saiu", launchDays > 0 ? "dias" : ""), null, "19/11/2026 · PS5 e Xbox Series X|S"));
+    g.append(card("Inscritos", big(fmtInt(subs), "/ 1.000"), pct(subs, 1000), subs >= 1000 ? "Meta de inscritos batida." : `Faltam ${fmtInt(1000 - subs)}. Com 500 libera Super Thanks e membros.`));
+    const w = el("div", { class: "wanted", "aria-label": `${stars} de 5 estrelas` });
+    for (let i = 0; i < 5; i++) w.append(el("span", { class: i < stars ? "on" : "", text: "★" }));
+    g.append(card("Views de Shorts (90 dias)", big(fmtInt(views), "/ 10 mi"), pct(views, 10000000), needViews ? `Ritmo necessário: ${fmtInt(perDay)} views por dia até o prazo.` : "Meta de views batida."));
+    g.append(card("Nível de procurado", w, null, "1 estrela a cada 2 milhões de views. 5 estrelas = meta batida."));
+    if (metricas?.atualizado) g.append(el("div", { class: "note", style: "grid-column:1/-1;color:var(--muted)", text: "Números salvos em " + new Date(metricas.atualizado).toLocaleString("pt-BR") }));
+    const st = (ok, txt) => el("span", { class: "chip " + (ok ? "s-postado" : "s-a_checar"), text: ok ? "Liberado" : txt });
+    $("#r-afil").replaceChildren(el("span", { class: "chip s-checada", text: "Pode ligar" }));
+    $("#r-fan").replaceChildren(st(subs >= 500 && views >= 3000000, "Em progresso"));
+    $("#r-ypp").replaceChildren(st(subs >= 1000 && views >= 10000000, "Em progresso"));
+    $("#r-spon").replaceChildren(st(subs >= 10000, "Mais tarde"));
+  }
+  $("#metricForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const ok = await write(() => db.doc("metricas/atual").set({ inscritos: Math.max(0, Number($("#m-subs").value) || 0), views90: Math.max(0, Number($("#m-views").value) || 0), atualizado: new Date().toISOString() }), $("#metricMsg"));
+    if (ok) $("#metricMsg").textContent = "Salvo.";
+  });
+
+  // ---------- CORTES ----------
+  const FST = { pedir: ["Pedir autorização", "s-a_checar"], pedido: ["Pedido enviado", "s-roteirizada"], autorizado: ["Autorizado", "s-postado"], negado: ["Negado", "s-descartada"] };
+  function renderFontes() {
+    const l = $("#fontes"); l.replaceChildren();
+    if (!fontes.length) l.append(el("div", { class: "notice", text: "Nenhuma fonte cadastrada ainda. Adicione streamers que você quer pedir autorização para cortar o GTA VI." }));
+    for (const f of fontes) {
+      const sel = el("select", { "aria-label": "Situação de " + f.nome, onchange: e => write(() => db.doc("fontes/" + f.id).update({ status: e.target.value })) });
+      Object.entries(FST).forEach(([k, [t]]) => sel.append(el("option", { value: k, selected: k === f.status }, t)));
+      const link = f.link ? el("a", { href: f.link, target: "_blank", rel: "noopener", text: f.link }) : null;
+      l.append(el("article", { class: "item" },
+        el("div", {}, el("h4", { text: f.nome }), el("div", { class: "sub" }, f.plataforma, f.nota ? "· " + f.nota : "")),
+        el("div", { class: "side" }, el("span", { class: "chip " + (FST[f.status] || FST.pedir)[1], text: (FST[f.status] || FST.pedir)[0] }), sel),
+        link ? el("div", { class: "src" }, link) : null));
+    }
+    applyRO();
+  }
+  $("#addFonte").addEventListener("submit", async e => {
+    e.preventDefault();
+    const ok = await write(() => db.collection("fontes").add({ nome: $("#s-nome").value.trim(), plataforma: $("#s-plat").value, link: $("#s-link").value.trim(), status: $("#s-status").value, nota: $("#s-nota").value.trim(), criado: new Date().toISOString() }));
+    if (ok) e.target.reset();
+  });
+
+  function renderAll() { renderWeek(); renderBank(); renderGoals(); renderFontes(); }
+  renderAll();
+
+  // ---------- conexão ----------
+  (async () => {
+    db = window.claude?.use ? await window.claude.use("db") : null;
+    if (!db) { $("#status").textContent = "Abra no claude.ai com login para ver os dados do canal."; canWrite = false; applyRO(); return; }
+    try {
+      const user = await window.claude.use("user");
+      const c = user ? await user.can("data.write") : null;
+      if (c === false) canWrite = false;
+    } catch (_) {}
+    applyRO();
+    let loaded = false;
+    const timer = setTimeout(() => { if (!loaded) $("#status").textContent = "Os dados ainda não chegaram. Verifique a conexão."; }, 10000);
+    const done = () => { loaded = true; clearTimeout(timer); $("#status").textContent = `${pautas.length} pautas · ${pautas.filter(p => p.status === "checada").length} checadas prontas`; };
+    const fail = () => { clearTimeout(timer); $("#status").textContent = "Não foi possível carregar os dados agora."; };
+    db.collection("pautas").onSnapshot(s => { pautas = s.docs.map(d => ({ id: d.id, ...d.data() })); renderWeek(); renderBank(); if (!s.metadata.fromCache) done(); else $("#status").textContent = "Mostrando cópia salva, atualizando…"; }, fail);
+    db.collection("fontes").onSnapshot(s => { fontes = s.docs.map(d => ({ id: d.id, ...d.data() })); renderFontes(); }, () => {});
+    db.doc("metricas/atual").onSnapshot(s => { metricas = s.exists ? s.data() : null; renderGoals(); }, () => {});
+  })();
+})();
+</script>
