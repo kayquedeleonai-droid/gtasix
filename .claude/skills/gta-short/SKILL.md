@@ -13,6 +13,16 @@ Pasta do vídeo: `producao/<AAAA-MM-DD>_<slug>/`. Exemplo completo: `producao/20
 - **Imagens:** Runware, modelo FLUX.2 klein 9B (`runware:400@2`), 768x1344, ~US$ 0,001 por imagem.
 - **Fontes:** `brand/fonts/Anton.ttf` (legenda/títulos).
 
+## Versão "prende a atenção" (padrão a partir do v2, ver producao/2026-11-09_gta3-11-setembro-v2)
+- **Voz expressiva**: `eleven_v3` + voiceId 455 + stability 0.4, com 1 tag curta por frase ([serious], [tense], [curious], [excited]),
+  reticências para pausa e CAIXA ALTA para ênfase (~145 créditos/min). Ela sai lenta: rodar
+  `python3 tools/tighten_audio.py narracao.mp3 timings_brutos.json narracao_ajustada.wav timings.json 1.22 0.2`
+  (encurta pausas, acelera 1,22x e mantém a legenda sincronizada). Ignorar tokens de tag ("[", "serious]") nos tempos.
+- **Visual de época**: imagens no estilo "early-2000s PlayStation 2 era open-world game screenshot, low-poly..." para GTA III/VC/SA.
+- **Cenas em movimento**: animar 4-6 imagens com `tools/runware_video.py` (Seedance 1.0 Pro Fast, ~US$ 0,07 por 5s) e usar `"fit": "cover"`.
+- **Corte a cada 2-4s**, `sfx` com `library/sfx/` (whoosh nos cortes, boom na revelação, chiado no "corta", hit na ênfase).
+- **Momentos sensíveis** (tragédias reais): cartela preta simples + `music_mute`, sem imagem do evento.
+
 ## Passo a passo
 1. **Narração**: `audio_tts` com o texto do roteiro → `creations_wait` → baixar MP3 para `narracao.mp3` (host pikaso.cdnpk.net liberado).
 2. **Tempos das palavras**: `audio_timing_get` (paginar até `hasMore=false`) → salvar `timings.json` como

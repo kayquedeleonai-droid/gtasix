@@ -127,10 +127,14 @@ def main(proj_file):
             # trecho de gameplay: horizontal -> vertical com fundo desfocado, sem o áudio original
             src = base / sc["video"]
             ss = str(sc.get("from", 0))
-            fc_v = (f"[0:v]fps={FPS},split=2[a][b];"
-                    f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=28:2,eq=brightness=-0.12[bg];"
-                    f"[b]scale={W}:-2,eq=saturation=1.08:contrast=1.04[fg];"
-                    f"[bg][fg]overlay=(W-w)/2:(H-h)/2-120,format=yuv420p[v]")
+            if sc.get("fit") == "cover":
+                fc_v = (f"[0:v]fps={FPS},scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},"
+                        f"eq=saturation=1.06:contrast=1.04,format=yuv420p[v]")
+            else:
+              fc_v = (f"[0:v]fps={FPS},split=2[a][b];"
+                      f"[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=28:2,eq=brightness=-0.12[bg];"
+                      f"[b]scale={W}:-2,eq=saturation=1.08:contrast=1.04[fg];"
+                      f"[bg][fg]overlay=(W-w)/2:(H-h)/2-120,format=yuv420p[v]")
             subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", ss, "-stream_loop", "-1", "-i", str(src),
                             "-filter_complex", fc_v, "-map", "[v]", "-an", "-frames:v", str(n),
                             "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", str(out)], check=True)
@@ -153,15 +157,29 @@ def main(proj_file):
     music = (base / proj["music"]).resolve()
     out = base / proj.get("out", "final.mp4")
     fade_at = max(duration - 1.5, 0)
+    # música: volume base 0.30; trechos em "music_mute" [[ini, fim], ...] ficam quase em silêncio
+    mutes = proj.get("music_mute", [])
+    mus_vol = "0.30"
+    for a, b in mutes:
+        mus_vol = f"if(between(t,{a},{b}),0.03,{mus_vol})"
+    voice_f = "loudnorm=I=-15:TP=-1.5:LRA=9" if proj.get("normalize_voice", True) else "volume=1.6"
     fc = (
         f"[0:v]ass={ass}:fontsdir={FONTS},format=yuv420p[v];"
-        f"[1:a]aresample=48000,volume=1.6,asplit=2[voz][sc];"
-        f"[2:a]aresample=48000,volume=0.30,afade=t=in:d=0.5,afade=t=out:st={fade_at}:d=1.5[mus];"
+        f"[1:a]aresample=48000,{voice_f},aresample=48000,asplit=2[voz][sc];"
+        f"[2:a]aresample=48000,volume='{mus_vol}':eval=frame,afade=t=in:d=0.5,afade=t=out:st={fade_at}:d=1.5[mus];"
         f"[mus][sc]sidechaincompress=threshold=0.03:ratio=8:attack=20:release=350[duck];"
-        f"[voz][duck]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95[a]"
     )
+    # efeitos sonoros: "sfx": [{"file": "../../library/sfx/whoosh.wav", "at": 2.9, "vol": 0.5}, ...]
+    sfx = proj.get("sfx", [])
+    extra_inputs, mix_labels = [], ["[voz]", "[duck]"]
+    for k, s in enumerate(sfx):
+        extra_inputs += ["-i", str((base / s["file"]).resolve())]
+        ms = int(float(s["at"]) * 1000)
+        fc += f"[{3 + k}:a]aresample=48000,volume={s.get('vol', 0.5)},adelay={ms}|{ms}[sfx{k}];"
+        mix_labels.append(f"[sfx{k}]")
+    fc += f"{''.join(mix_labels)}amix=inputs={len(mix_labels)}:duration=first:normalize=0,alimiter=limit=0.95[a]"
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(lst),
-                    "-i", str(voice), "-stream_loop", "-1", "-i", str(music),
+                    "-i", str(voice), "-stream_loop", "-1", "-i", str(music), *extra_inputs,
                     "-filter_complex", fc, "-map", "[v]", "-map", "[a]", "-t", f"{duration:.2f}",
                     "-c:v", "libx264", "-preset", "medium", "-crf", "19", "-r", str(FPS),
                     "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(out)], check=True)

@@ -1,0 +1,168 @@
+{
+ "voice": "narracao_ajustada.wav",
+ "timings": "timings.json",
+ "music": "../../library/musicas/trilha_01_synthwave_miami.mp3",
+ "music_mute": [
+  [
+   9.2,
+   12.4
+  ]
+ ],
+ "hook": "O GTA 3 QUE\\NVOCÊ NUNCA JOGOU",
+ "hook_end": 2.9,
+ "highlight": [
+  "GTA",
+  "3",
+  "2001.",
+  "setembro.",
+  "Rockstar",
+  "Nova",
+  "York.",
+  "IGUALZINHA",
+  "azul",
+  "preta",
+  "Darkel,",
+  "meses",
+  "outubro,",
+  "sempre."
+ ],
+ "end_card_start": 44.5,
+ "scenes": [
+  {
+   "video": "videos/v01_hook_rua.mp4",
+   "start": 0,
+   "fit": "cover"
+  },
+  {
+   "image": "cenas/v02_estudio_2001.png",
+   "start": 2.9
+  },
+  {
+   "video": "videos/v03_ny_manha.mp4",
+   "start": 7.0,
+   "fit": "cover"
+  },
+  {
+   "image": "cenas/v00_preto.png",
+   "start": 9.3
+  },
+  {
+   "image": "cenas/v02_estudio_2001.png",
+   "start": 12.4
+  },
+  {
+   "image": "cenas/v01_hook_rua.png",
+   "start": 15.8
+  },
+  {
+   "video": "videos/v04_viatura_azul.mp4",
+   "start": 18.2,
+   "fit": "cover"
+  },
+  {
+   "video": "videos/v05_viatura_preta.mp4",
+   "start": 23.2,
+   "fit": "cover"
+  },
+  {
+   "video": "videos/v06_darkel.mp4",
+   "start": 25.7,
+   "fit": "cover"
+  },
+  {
+   "image": "cenas/v07_corte.png",
+   "start": 32.7
+  },
+  {
+   "image": "cenas/v08_loja.png",
+   "start": 36.9
+  },
+  {
+   "video": "videos/v09_cidade_aerea.mp4",
+   "start": 41.1,
+   "fit": "cover"
+  },
+  {
+   "image": "cenas/v09_cidade_aerea.png",
+   "start": 44.5
+  }
+ ],
+ "sfx": [
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 2.72,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 6.82,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 15.62,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 18.02,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 25.52,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 32.52,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 36.72,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 40.92,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/whoosh.wav",
+   "at": 44.32,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/boom.wav",
+   "at": 10.45,
+   "vol": 0.8
+  },
+  {
+   "file": "../../library/sfx/chiado.wav",
+   "at": 12.3,
+   "vol": 0.35
+  },
+  {
+   "file": "../../library/sfx/hit.wav",
+   "at": 21.05,
+   "vol": 0.6
+  },
+  {
+   "file": "../../library/sfx/chiado.wav",
+   "at": 23.1,
+   "vol": 0.4
+  },
+  {
+   "file": "../../library/sfx/hit.wav",
+   "at": 23.22,
+   "vol": 0.7
+  },
+  {
+   "file": "../../library/sfx/hit.wav",
+   "at": 44.5,
+   "vol": 0.5
+  }
+ ],
+ "out": "final_gta3_11_setembro_v2.mp4"
+}
